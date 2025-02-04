@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Love</title>
+    <style>
+        body {
+            position: relative;
+            overflow: hidden;
+            background-color: pink; /* Set background color to pink */
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #noButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100vh);
+            }
+        }
+        #gif {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 300px; /* Adjust width of the GIF */
+        }
+        .endMessage {
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: red;
+            display: none; /* Hide initially */
+        }
+    </style>
+</head>
+<body>
+    <img id="gif" src="https://media.giphy.com/media/7vDoUoDZHoUQxMPkd7/giphy.gif" alt="Snoopy Heart GIF">
+
+    <button id="noButton" onclick="moveNo()">No</button>
+
+    <div class="endMessage" id="endMessage">mwehehehe yehey ni agree si paipai</div>
+
+    <script>
+        let button = document.getElementById("noButton");
+        let endMessage = document.getElementById("endMessage");
+
+        // Function to accept love (you can call it via some other event, like a button click)
+        function acceptLove() {
+            document.body.innerHTML = '<h1>mwehehehe yehey ni agree si paipai </h1>';
+        }
+
+        // Function to move the button on click
+        function moveNo() {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            button.style.left = `${x}px`;
+            button.style.top = `${y}px`;
+        }
+
+        // Function to track mouse movement and update button's position
+        document.addEventListener('mousemove', (event) => {
+            button.style.left = `${event.clientX - button.offsetWidth / 2}px`;
+            button.style.top = `${event.clientY - button.offsetHeight / 2}px`;
+        });
+
+        // Function to create falling hearts
+        function createHearts() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.top = window.innerHeight + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
+        }
+
+        // Create hearts every 500ms
+        setInterval(createHearts, 500);
+
+        // Show the ending scene message after 5 seconds
+        setTimeout(() => {
+            button.style.display = 'none'; // Hide the button
+            endMessage.style.display = 'block'; // Show the message
+        }, 5000);
+    </script>
+</body>
+</html>
+
